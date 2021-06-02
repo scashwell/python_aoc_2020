@@ -27,3 +27,13 @@ def find_two_sum(integers, target_sum):
         else:
             return (integers[low_index], integers[high_index])
 
+def part_two(data):
+    expenses = strings_to_int(data)
+    first, second, third = find_three_sum(expenses, target_sum)
+
+def find_three_sum(integers, target_sum):
+    for i in integers:
+        for j in integers:
+            for k in integers:
+                if i + j + k == target_sum:
+                    return (i, j, k)
