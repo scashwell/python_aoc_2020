@@ -19,21 +19,28 @@ def find_two_sum(integers, target_sum):
     while total != target_sum:
         count +=1
         total = integers[low_index] + integers[high_index]
-        if total > target_sum:
+        if total == target_sum:
+            return (integers[low_index], integers[high_index])
+        elif low_index == len(integers)-1 or high_index == 0-len(integers):
+            break
+        elif total > target_sum:
             high_index -= 1
         elif total < target_sum:
             high_index = -1
             low_index += 1
-        else:
-            return (integers[low_index], integers[high_index])
-
+        
 def part_two(data):
     expenses = strings_to_int(data)
-    first, second, third = find_three_sum(expenses, target_sum)
+    first, second, third = find_three_sum(expenses, 2020)
+    return first * second * third
 
 def find_three_sum(integers, target_sum):
     for i in integers:
-        for j in integers:
-            for k in integers:
-                if i + j + k == target_sum:
-                    return (i, j, k)
+        new_integers = integers
+        new_integers.remove(i)
+        new_target_sum = target_sum - i
+        result = find_two_sum(new_integers, new_target_sum)
+        if result is None:
+            continue
+        else:
+            return {i, result[0], result[1]}
